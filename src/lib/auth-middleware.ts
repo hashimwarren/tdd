@@ -4,3 +4,12 @@ export function requireAuth(session?: { user: any } | null) {
   }
   return session.user
 }
+
+export function requireRole(
+  session: { user: { role: string } },
+  requiredRole: string
+) {
+  if (session.user.role !== requiredRole) {
+    throw new Error('Unauthorized: Insufficient permissions')
+  }
+}
