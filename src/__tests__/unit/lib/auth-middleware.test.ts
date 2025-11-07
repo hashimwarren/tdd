@@ -48,4 +48,19 @@ describe('requireRole', () => {
     expect(() => requireRole(employeeSession, requiredRole))
       .toThrow(/unauthorized|forbidden|insufficient permissions/i)
   })
+
+  it('does not throw when user role matches required role', () => {
+    // Arrange: HR manager session accessing HR route
+    const hrManagerSession = {
+      user: {
+        id: '789',
+        email: 'hr@example.com',
+        role: 'hr_manager'
+      }
+    }
+    const requiredRole = 'hr_manager'
+
+    // Act & Assert: Should not throw any error
+    expect(() => requireRole(hrManagerSession, requiredRole)).not.toThrow()
+  })
 })
