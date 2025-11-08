@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { employeeSchema } from '@/lib/schemas/employee'
+import { ZodError } from 'zod'
 
 describe('employeeSchema', () => {
   describe('valid employee data', () => {
@@ -82,10 +83,10 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        expect(error.issues[0].path).toContain('email')
-        expect(error.issues[0].message).toMatch(/email|invalid/i)
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        expect((error as ZodError).issues[0].path).toContain('email')
+        expect((error as ZodError).issues[0].message).toMatch(/email|invalid/i)
       }
     })
 
@@ -133,10 +134,10 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        expect(error.issues[0].path).toContain('id')
-        expect(error.issues[0].message).toMatch(/required/i)
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        expect((error as ZodError).issues[0].path).toContain('id')
+        expect((error as ZodError).issues[0].message).toMatch(/required/i)
       }
     })
 
@@ -154,11 +155,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const firstNameError = error.issues.find((issue: any) => issue.path.includes('firstName'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const firstNameError = (error as ZodError).issues.find((issue) => issue.path.includes('firstName'))
         expect(firstNameError).toBeDefined()
-        expect(firstNameError.message).toMatch(/required/i)
+        expect(firstNameError?.message).toMatch(/required/i)
       }
     })
 
@@ -176,11 +177,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const lastNameError = error.issues.find((issue: any) => issue.path.includes('lastName'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const lastNameError = (error as ZodError).issues.find((issue) => issue.path.includes('lastName'))
         expect(lastNameError).toBeDefined()
-        expect(lastNameError.message).toMatch(/required/i)
+        expect(lastNameError?.message).toMatch(/required/i)
       }
     })
 
@@ -198,11 +199,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const emailError = error.issues.find((issue: any) => issue.path.includes('email'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const emailError = (error as ZodError).issues.find((issue) => issue.path.includes('email'))
         expect(emailError).toBeDefined()
-        expect(emailError.message).toMatch(/required/i)
+        expect(emailError?.message).toMatch(/required/i)
       }
     })
 
@@ -220,11 +221,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const roleError = error.issues.find((issue: any) => issue.path.includes('role'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const roleError = (error as ZodError).issues.find((issue) => issue.path.includes('role'))
         expect(roleError).toBeDefined()
-        expect(roleError.message).toMatch(/required/i)
+        expect(roleError?.message).toMatch(/required/i)
       }
     })
   })
@@ -296,11 +297,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const roleError = error.issues.find((issue: any) => issue.path.includes('role'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const roleError = (error as ZodError).issues.find((issue) => issue.path.includes('role'))
         expect(roleError).toBeDefined()
-        expect(roleError.message).toMatch(/invalid|enum|expected/i)
+        expect(roleError?.message).toMatch(/invalid|enum|expected/i)
       }
     })
 
@@ -335,11 +336,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const firstNameError = error.issues.find((issue: any) => issue.path.includes('firstName'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const firstNameError = (error as ZodError).issues.find((issue) => issue.path.includes('firstName'))
         expect(firstNameError).toBeDefined()
-        expect(firstNameError.message).toMatch(/string|at least|minimum/i)
+        expect(firstNameError?.message).toMatch(/string|at least|minimum/i)
       }
     })
 
@@ -358,11 +359,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const firstNameError = error.issues.find((issue: any) => issue.path.includes('firstName'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const firstNameError = (error as ZodError).issues.find((issue) => issue.path.includes('firstName'))
         expect(firstNameError).toBeDefined()
-        expect(firstNameError.message).toMatch(/at most|maximum|100/i)
+        expect(firstNameError?.message).toMatch(/at most|maximum|100/i)
       }
     })
 
@@ -398,11 +399,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const lastNameError = error.issues.find((issue: any) => issue.path.includes('lastName'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const lastNameError = (error as ZodError).issues.find((issue) => issue.path.includes('lastName'))
         expect(lastNameError).toBeDefined()
-        expect(lastNameError.message).toMatch(/string|at least|minimum/i)
+        expect(lastNameError?.message).toMatch(/string|at least|minimum/i)
       }
     })
 
@@ -421,11 +422,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const lastNameError = error.issues.find((issue: any) => issue.path.includes('lastName'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const lastNameError = (error as ZodError).issues.find((issue) => issue.path.includes('lastName'))
         expect(lastNameError).toBeDefined()
-        expect(lastNameError.message).toMatch(/at most|maximum|100/i)
+        expect(lastNameError?.message).toMatch(/at most|maximum|100/i)
       }
     })
 
@@ -462,11 +463,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const departmentError = error.issues.find((issue: any) => issue.path.includes('department'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const departmentError = (error as ZodError).issues.find((issue) => issue.path.includes('department'))
         expect(departmentError).toBeDefined()
-        expect(departmentError.message).toMatch(/at most|maximum|100/i)
+        expect(departmentError?.message).toMatch(/at most|maximum|100/i)
       }
     })
 
@@ -505,11 +506,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const idError = error.issues.find((issue: any) => issue.path.includes('id'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const idError = (error as ZodError).issues.find((issue) => issue.path.includes('id'))
         expect(idError).toBeDefined()
-        expect(idError.message).toMatch(/uuid|invalid/i)
+        expect(idError?.message).toMatch(/uuid|invalid/i)
       }
     })
 
@@ -669,11 +670,11 @@ describe('employeeSchema', () => {
       
       try {
         employeeSchema.parse(invalidEmployee)
-      } catch (error: any) {
-        expect(error.issues).toBeDefined()
-        const phoneError = error.issues.find((issue: any) => issue.path.includes('phoneNumber'))
+      } catch (error) {
+        expect((error as ZodError).issues).toBeDefined()
+        const phoneError = (error as ZodError).issues.find((issue) => issue.path.includes('phoneNumber'))
         expect(phoneError).toBeDefined()
-        expect(phoneError.message).toMatch(/phone|invalid|format/i)
+        expect(phoneError?.message).toMatch(/phone|invalid|format/i)
       }
     })
 
